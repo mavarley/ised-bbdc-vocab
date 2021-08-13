@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Citizenship Vocabulary v0.3</title>
+    <title>ISED Business Banking Vocabulary v0.1</title>
     <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
     <!--
       === NOTA BENE ===
@@ -20,17 +20,17 @@
         specStatus: "CG-DRAFT",
 
         // the specification's short name, as in http://www.w3.org/TR/short-name/
-        shortName: "citizenship-vocab",
+        shortName: "ised-bbdc-vocab",
 
         // subtitle for the spec
-        subtitle: "A Linked Data vocabulary for expressing attributes related to citizenship",
+        subtitle: "A Linked Data vocabulary for expressing attributes related to business banking.",
 
         // if you wish the publication date to be other than today, set this
         //publishDate: "2019-03-26",
         //crEnd: "2019-04-23",
         //implementationReportURI: "https://w3c.github.io/",
         previousMaturity: "UNOFFICIAL",
-        previousPublishDate: "2019-12-03",
+        previousPublishDate: "2021-08-13",
 
         // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
         // and its maturity status
@@ -41,58 +41,48 @@
         localBiblio: ccg.localBiblio,
         doJsonLd: true,
 
-        github: "https://github.com/w3c-ccg/citizenship-vocab/",
+        github: "https://github.com/mavarley/ised-bbdc-vocab",
         includePermalinks: false,
 
         // if there a publicly available Editor's Draft, this is the link
-        edDraftURI: "https://w3c-ccg.github.io/citizenship-vocab/",
+        // edDraftURI: "",
 
         // if this is a LCWD, uncomment and set the end of its review period
         // lcEnd: "2009-08-05",
 
         // editors, add as many as you like
         // only "name" is required
-        editors: [{
-          name: "Manu Sporny",
-          url: "http://manu.sporny.org/",
-          company: "Digital Bazaar",
-          companyURL: "https://digitalbazaar.com/",
-          w3cid: 41758
-        }, {
+        editors: [ {
           name: "Mike Varley",
-          url: "https://www.linkedin.com/in/mavarley/",
-          company: "Secure Key",
-          companyURL: "https://securekey.com/"},
+          company: "SecureKey Technologies Inc.",
+          companyURL: "https://securekey.com/"
+        },
         {
-          name: "Markus Sabadello",
-          url: "https://www.linkedin.com/in/markus-sabadello-353a0821",
-          company: "Danube Tech",
-          companyURL: "https://danubetech.com/",
-          w3cid: 46729
-        }],
+          name: "Stephen Curren",
+          company: "Cloud Compass Computing Inc.",
+          companyURL: "https://cloudcompass.ca/"
+        },
+        {
+          name: "Mario Bonito",
+          company: "Innovation, Science and Economic Development Canada (ISED)",
+          companyURL: "https://ic.gc.ca"
+        },],
         // authors, add as many as you like.
         // This is optional, uncomment if you have authors as well as editors.
         // only "name" is required. Same format as editors.
         authors:[{
-          name: "Dave Longley",
-          url: "https://github.com/dlongley",
-          company: "Digital Bazaar",
-          companyURL: "https://digitalbazaar.com/"
-        }, {
-          name: "Manu Sporny",
-          url: "http://manu.sporny.org/",
-          company: "Digital Bazaar",
-          companyURL: "https://digitalbazaar.com/",
-          w3cid: 41758
+          name: "Mike Varley",
+          company: "SecureKey Technologies Inc.",
+          companyURL: "https://securekey.com/"
         }],
         // name of the WG
-        wg:           "Credentials Community Group",
+        //wg:           "Credentials Community Group",
 
         // URI of the public WG page
-        wgURI:        "https://www.w3.org/community/credentials/",
+        //wgURI:        "https://www.w3.org/community/credentials/",
 
         // name (with the @w3c.org) of the public mailing to which comments are due
-        wgPublicList: "public-credentials",
+        //wgPublicList: "public-credentials",
 
         // URI of the patent status for this WG, for Rec-track documents
         // !!!! IMPORTANT !!!!
@@ -123,21 +113,14 @@ pre .comment {
     <section id='abstract'>
       <p>
 This specification describes a Linked Data vocabulary for asserting Verifiable
-Credentials related to residency and citizenship information, such as given
-name, family name, country of citizenship, birthday, and other attributes used
-to determine the citizenship status of a citizen.
+Credentials related to business banking, such as a Verified Person, Verified 
+Organization and Verified Relationship.
       </p>
     </section>
 
     <section id='sotd'>
       <!--p>
-Comments regarding all aspects of this document are welcome.
-Please file issues
-directly on <a href="https://github.com/digitalbazaar/citizenship-vocab/issues/">GitHub</a>,
-or send them to
-<a href="mailto:public-credentials@w3.org">public-credentials@w3.org</a>
-(<a href="mailto:public-credentials-request@w3.org?subject=subscribe">subscribe</a>,
-<a href="https://lists.w3.org/Archives/Public/public-credentials/">archives</a>).
+        Contributions are welcome, join us on GitHub...
 </p-->
 
     </section>
@@ -146,11 +129,10 @@ or send them to
       <h2>Introduction</h2>
 
       <p>
-This specification describes a Linked Data vocabulary for asserting
-Verifiable Credentials related to citizenship information, such as
-given name, family name, country of citizenship, birthday, and other
-attributes used to determine the citizenship status of a citizen.
-      </p>
+This specification describes a Linked Data vocabulary for asserting Verifiable
+Credentials related to business banking, such as a Verified Person, Verified 
+Organization and Verified Relationship.
+              </p>
 
       <section class="informative">
         <h3>Use Cases and Requirements</h3>
@@ -162,7 +144,13 @@ find useful:
 
         <ul>
           <li>
-Permanent Residency Card
+Verified Person (for the purposes of business banking)
+          </li>
+          <li>
+Verified Organization
+          </li>
+          <li>
+Verified Relationship
           </li>
         </ul>
 
@@ -180,31 +168,37 @@ is useful:
 {
   "@context": [
     "https://www.w3.org/2018/credentials/v1",
-    "https://w3id.org/citizenship/v1"
-    <span class="comment">// optional country-specific context can be added below</span>
-    <span class="comment">// e.g., https://uscis.gov/prc/v1</span>
+    "https://w3id.org/ised-bbdc/v1"
   ],
-  "id": "https://issuer.oidp.uscis.gov/credentials/83627465",
-  "type": ["VerifiableCredential", "PermanentResidentCard"],
+  "id": "https://issuer.ic.gc.ca/credentials/7657829",
+  "type": ["VerifiableCredential", "VerifiedPerson"],
   "issuer": "did:example:28394728934792387",
   "identifier": "83627465",
-  "name": "Permanent Resident Card",
-  "description": "Government of Example Permanent Resident Card.",
+  "name": "Business Banking Verified Person",
+  "description": "Verified Person identity attributes",
   "issuanceDate": "2019-12-03T12:19:52Z",
   "expirationDate": "2029-12-03T12:19:52Z",
   "credentialSubject": {
     "id": "did:example:b34ca6cd37bbf23",
-    "type": ["PermanentResident", "Person"],
-    "givenName": "JOHN",
+    "type": ["VerifiedPerson", "Person"],
+    "givenName": "JEAN",
+    "additionalName": "MICHEL",
     "familyName": "SMITH",
-    "gender": "Male",
-    "image": "data:image/png;base64,iVBORw0KGgo...kJggg==",
-    "residentSince": "2015-01-01",
-    "lprCategory": "C09",
-    "lprNumber": "999-999-999",
-    "commuterClassification": "C1",
-    "birthCountry": "Bahamas",
-    "birthDate": "1958-07-17"
+
+    "address": {
+        "streetAddress": "123 Main St",
+        "city": "Montreal",
+        "province": "QC",
+        "country": "CA",
+        "postalCode": "A1A 1A1"
+      }
+    },
+
+    "dateOfBirth": "1989-01-01",
+    "phoneNumber": "(514) 123-4567",
+    "alternatePhoneNumber": "(514) 555-0333",
+    "email": "jmsmith89@gmail.com",
+    "gender": "X"
   },
   "proof": {
      "type": "Ed25519Signature2018",
@@ -214,6 +208,11 @@ is useful:
      "verificationMethod": "did:example:28394728934792387#keys-7f83he7s8"
   }
 }
+        </pre>
+        <p>
+A Verified Organization Example:
+        </p>
+        <pre class="example">
         </pre>
       </section>
 
@@ -228,7 +227,7 @@ is useful:
     </section>
 
     <section class="normative">
-      <h2>The Citizenship Vocabulary</h2>
+      <h2>The ISED Business Banking Vocabulary</h2>
 
       <p>
 This vocabulary assumes all terms specified in the base Verifiable
@@ -247,34 +246,33 @@ status.
         <tbody>
           <tr>
             <td>
-PermanentResident
+VerifiedPerson
             </td>
             <td>
-Specifies that the subject of the credential is a permanent resident.
-            </td>
-          </tr>
-          <tr>
-            <td>
-PermanentResidentCard
-            </td>
-            <td>
-Specifies that the credential is a permanent resident card.
+Specifies that the subject of the credential is person verified by the issuer of this credential.
             </td>
           </tr>
           <tr>
             <td>
-Person
+VerifiedOrganization
             </td>
             <td>
-Specifies that the subject of the credential is a person.
+Specifies that the credential represents a government verified organization.
+            </td>
+          </tr>
+          <tr>
+            <td>
+VerifiedRelationship
+            </td>
+            <td>
+Specifies that the subject of the credential is related to the organization.
             </td>
           </tr>
         </tbody>
       </table>
 
       <p>
-This document also specifies the following terms for expressing residency and
-citizenship status:
+This document also specifies the following terms for expressing organizational relationships:
       </p>
 
       <table class="simple">
@@ -303,15 +301,6 @@ The date on which a individual was born.
           </tr>
           <tr>
             <td>
-commuterClassification
-            </td>
-            <td>
-A code that specifies whether an individual lives in a specific country or
-commutes across a border to work.
-            </td>
-          </tr>
-          <tr>
-            <td>
 familyName
             </td>
             <td>
@@ -332,40 +321,6 @@ givenName
             </td>
             <td>
 The non-family name with which the individual identifies.
-            </td>
-          </tr>
-          <tr>
-            <td>
-image
-            </td>
-            <td>
-A representative image of the individual.
-            </td>
-          </tr>
-          <tr>
-            <td>
-lprCategory
-            </td>
-            <td>
-The category for a legal permanent resident as specified by the country's
-official body for making such a determination.
-            </td>
-          </tr>
-          <tr>
-            <td>
-lprNumber
-            </td>
-            <td>
-The identifier which is used to identify the legal permanent resident by the
-country's official body for making such a determination.
-            </td>
-          </tr>
-          <tr>
-            <td>
-residentSince
-            </td>
-            <td>
-The date from which the individual is considered a resident.
             </td>
           </tr>
         </tbody>
@@ -445,453 +400,6 @@ Datetime
         </table>
 
       </section>
-      <section class="normative">
-        <h3>commuterClassification</h3>
-
-        <p>
-A code that specifies whether an individual lives in a particular country or
-commutes across a border to work.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-commuterClassification
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-https://w3id.org/citizenship#commuterClassification
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-String
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>familyName</h3>
-
-        <p>
-The name of the family with which the individual identifies.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-familyName
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-http://schema.org/familyName
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-string
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>gender</h3>
-
-        <p>
-The gender of the individual.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-gender
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-http://schema.org/gender
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-string
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>givenName</h3>
-
-        <p>
-The non-family name with which the individual identifies.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-givenName
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-http://schema.org/givenName
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-string
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>identifier</h3>
-
-        <p>
-An alternate identifier used by the issuer of the credential to refer to
-information associated with the credential.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-identifier
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-http://schema.org/identifier
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-string
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>image</h3>
-
-        <p>
-A representative image of the individual.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-image
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-http://schema.org/image
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-string
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>lprCategory</h3>
-
-        <p>
-The category for a legal permanent resident as specified by the country's official body for making such a determination.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-lprCategory
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-https://w3id.org/citizenship#lprCategory
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-string
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>lprNumber</h3>
-
-        <p>
-The identifier which is used to identify the legal permanent resident by the country's official body for making such a determination.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-lprNumber
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-https://w3id.org/citizenship#lprNumber
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-string
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>PermanentResidentCard</h3>
-
-        <p>
-Specifies that the credential is a permanent resident card.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-PermanentResidentCard
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-https://w3id.org/citizenship#PermanentResidentCard
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-Class
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>PermanentResident</h3>
-
-        <p>
-Specifies that the subject of the credential is a permanent resident.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-PermanentResident
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-https://w3id.org/citizenship#PermanentResident
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-Class
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>Person</h3>
-
-        <p>
-Specifies that the subject of the credential is a person.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-Person
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-http://schema.org/Person
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-Class
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-      <section class="normative">
-        <h3>residentSince</h3>
-
-        <p>
-The date from which the individual is considered a resident.
-        </p>
-
-        <table class="simple">
-          <tbody>
-            <tr>
-              <td>
-Term
-              </td>
-              <td>
-residentSince
-              </td>
-            </tr>
-            <tr>
-              <td>
-URL
-              </td>
-              <td>
-https://w3id.org/citizenship#residentSince
-              </td>
-            </tr>
-            <tr>
-              <td>
-Expected Value
-              </td>
-              <td>
-Datetime
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-      </section>
-    </section>
 
     <section class="informative">
       <h2>Privacy Considerations</h2>
